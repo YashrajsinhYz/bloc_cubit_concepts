@@ -14,13 +14,15 @@ class _GroceryHomeScreenState extends State<GroceryHomeScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text("Grocery Store")),
       body: Center(
-        /*child: BlocConsumer(
+        child: BlocConsumer(
           // bloc: ,
           // buildWhen: (previous, current) => ,
           // listenWhen: (previous, current) => ,
-          builder: (context, state) {},
+          builder: (context, state) {
+            return Container();
+          },
           listener: (context, state) {},
-        ),*/
+        ),
       ),
     );
   }
