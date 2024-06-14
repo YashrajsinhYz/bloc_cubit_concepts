@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import '../../../Utilities/imports.dart';
+
 @immutable
 abstract class HomeState {}
 
@@ -7,7 +9,11 @@ class HomeInitial extends HomeState {}
 
 class HomeLoadingState extends HomeState {}
 
-class HomeSuccessState extends HomeState {}
+class HomeSuccessState extends HomeState {
+  final List<ProductModel> products;
+
+  HomeSuccessState({required this.products});
+}
 
 class HomeErrorState extends HomeState {}
 

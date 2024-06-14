@@ -1,5 +1,6 @@
 import 'package:bloc_cubit_concepts/Git%20Profile/Cubit/github_profile_cubit.dart';
 import 'package:bloc_cubit_concepts/Git%20Profile/Cubit/github_profile_screen.dart';
+import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Home/Ui/grocery_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,6 +48,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
               "GET api using Cubit",
+            ),
+            const SizedBox(height: 20),
+            customElevatedButton(
+              () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const GroceryHomeScreen(),
+                  ),
+                );
+              },
+              "Grocery Using Bloc",
             )
           ],
         ),
