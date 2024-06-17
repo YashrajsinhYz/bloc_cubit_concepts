@@ -1,6 +1,6 @@
 import 'package:bloc_cubit_concepts/Git%20Profile/Cubit/github_profile_cubit.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Cart/Bloc/cart_bloc.dart';
-import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Home/Ui/grocery_home_screen.dart';
+import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Wishlist/Bloc/wishlist_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,14 +19,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CounterCubit>(
-          create: (context) => CounterCubit(),
-        ),
-        BlocProvider<GithubProfileCubit>(
-          create: (context) => GithubProfileCubit(),
-        ),
+        BlocProvider<CounterCubit>(create: (context) => CounterCubit()),
+        BlocProvider<GithubProfileCubit>(create: (context) => GithubProfileCubit()),
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => CartBloc()),
+        BlocProvider(create: (context) => WishlistBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
