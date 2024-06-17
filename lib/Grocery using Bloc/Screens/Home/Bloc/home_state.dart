@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
-
-import '../../../Utilities/imports.dart';
+part of 'home_bloc.dart';
 
 @immutable
 abstract class HomeState {}
 
-class HomeInitial extends HomeState {}
+class HomeInitialState extends HomeState {}
 
 class HomeLoadingState extends HomeState {}
 
@@ -24,5 +22,7 @@ class NavigateToCartActionState extends HomeActionState {}
 class NavigateToWishlistActionState extends HomeActionState {}
 
 class ProductAddedToCartActionState extends HomeActionState {}
+
+class ProductRemovedFromCartActionState extends HomeActionState {}
 
 class ProductAddedToWishlistActionState extends HomeActionState {}

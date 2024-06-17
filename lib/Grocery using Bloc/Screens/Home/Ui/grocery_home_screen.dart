@@ -1,11 +1,10 @@
-import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Cart/cart_screen.dart';
+import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Cart/Ui/cart_screen.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Home/Bloc/home_bloc.dart';
-import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Home/Bloc/home_event.dart';
-import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Home/Bloc/home_state.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Utilities/Widgets/product_tile_widget.dart';
-import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Utilities/imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../Utilities/Data/grocery_list.dart';
 
 class GroceryHomeScreen extends StatefulWidget {
   const GroceryHomeScreen({super.key});
@@ -48,9 +47,16 @@ class _GroceryHomeScreenState extends State<GroceryHomeScreen> {
           // listenWhen: (previous, current) => ,
           listener: (context, state) {
             if (state is NavigateToCartActionState) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const CartScreen()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const CartScreen()));
             } else if (state is ProductAddedToCartActionState) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Added to Cart.")));
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Added to Cart."),
+                  duration: Duration(seconds: 1)));
+            } else if (state is ProductRemovedFromCartActionState) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Removed from Cart."),
+                  duration: Duration(seconds: 1)));
             }
           },
           builder: (context, state) {
@@ -65,18 +71,13 @@ class _GroceryHomeScreenState extends State<GroceryHomeScreen> {
                           homeBloc: homeBloc,
                           productModel: successState.products[index],
                         ));
-              /*case ProductAddedToCartActionState : return ListView.builder(
-                  itemCount: GroceryData.groceryProducts.length,
-                  itemBuilder: (context, index) => ProductTileWidget(
-                    homeBloc: homeBloc,
-                    productModel: successState.products[index],
-                  ));*/
             }
-            return Container(
-              height: 250,
-              width: 390,
-              color: Colors.red,
-            );
+            return ListView.builder(
+                itemCount: groceryList.length,
+                itemBuilder: (context, index) => ProductTileWidget(
+                      homeBloc: homeBloc,
+                      productModel: groceryList[index],
+                    ));
           },
         ),
       ),

@@ -1,5 +1,4 @@
-import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Utilities/imports.dart';
-import 'package:flutter/foundation.dart';
+part of 'home_bloc.dart';
 
 @immutable
 abstract class HomeEvent {}
