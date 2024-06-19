@@ -44,14 +44,18 @@ class ProductTileWidget extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(productModel.inWishlist ? Icons.favorite : Icons.favorite_border),
+                    icon: Icon(productModel.inWishlist
+                        ? Icons.favorite
+                        : Icons.favorite_border),
                     onPressed: () {
                       homeBloc.add(ProductWishlistButtonEvent(
                           clickedProduct: productModel));
                     },
                   ),
                   IconButton(
-                    icon: Icon(productModel.inCart ? Icons.shopping_cart : Icons.add_shopping_cart),
+                    icon: Icon(productModel.inCart
+                        ? Icons.shopping_cart
+                        : Icons.add_shopping_cart),
                     onPressed: () {
                       homeBloc.add(
                           ProductCartButtonEvent(clickedProduct: productModel));

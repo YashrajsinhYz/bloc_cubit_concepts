@@ -1,4 +1,3 @@
-import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Cart/Bloc/cart_bloc.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Home/Ui/grocery_home_screen.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Wishlist/Bloc/wishlist_bloc.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Wishlist/Bloc/wishlist_event.dart';
@@ -36,14 +35,14 @@ class _WishlistScreenState extends State<WishlistScreen> {
         return Future.value(true);
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text("Your Cart")),
+        appBar: AppBar(title: const Text("Your Wishlist")),
         body: Center(
           child: BlocConsumer<WishlistBloc, WishlistState>(
             bloc: wishlistBloc,
             listener: (context, state) {
-              if (state is RemovedFromCartActionState) {
+              if (state is RemovedFromWishlistActionState) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Item removed from Cart."),
+                    content: Text("Item removed from wishlist."),
                     duration: Duration(seconds: 1)));
               }
             },
@@ -54,7 +53,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                 case WishlistSuccessState:
                   final successState = state as WishlistSuccessState;
                   return successState.wishlistItems.isEmpty
-                      ? const Text("Empty Cart.")
+                      ? const Text("Empty wishlist.")
                       : ListView.builder(
                           itemCount: successState.wishlistItems.length,
                           itemBuilder: (context, index) {
@@ -65,13 +64,13 @@ class _WishlistScreenState extends State<WishlistScreen> {
                           },
                         );
               }
-              return cartItems.isEmpty
-                  ? const Text("Empty Cart.")
+              return wishListItems.isEmpty
+                  ? const Text("Empty wishlist.")
                   : ListView.builder(
-                      itemCount: cartItems.length,
+                      itemCount: wishListItems.length,
                       itemBuilder: (context, index) => WishlistTileWidget(
                             wishlistBloc: wishlistBloc,
-                            productModel: cartItems[index],
+                            productModel: wishListItems[index],
                           ));
             },
           ),

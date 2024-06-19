@@ -1,4 +1,3 @@
-import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Cart/Bloc/cart_bloc.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Wishlist/Bloc/wishlist_bloc.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Wishlist/Bloc/wishlist_event.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Utilities/imports.dart';
@@ -33,7 +32,7 @@ class WishlistTileWidget extends StatelessWidget {
           const SizedBox(height: 10),
           Text(productModel.name,
               style:
-              const TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
+                  const TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
           Text(productModel.description),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,16 +44,21 @@ class WishlistTileWidget extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.favorite),
+                    icon: Icon(productModel.inWishlist
+                        ? Icons.favorite
+                        : Icons.favorite_border),
                     onPressed: () {
-                      // cartBloc.add();
+                      wishlistBloc.add(RemoveFromWishlistEvent(productToRemove: productModel));
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.shopping_cart),
-                    onPressed: () {
+                    icon: Icon(productModel.inCart
+                        ? Icons.shopping_cart
+                        : Icons.add_shopping_cart),
+                    onPressed: null
+                    /*() {
                       wishlistBloc.add(RemoveFromWishlistEvent(productModel));
-                    },
+                    }*/,
                   ),
                 ],
               )

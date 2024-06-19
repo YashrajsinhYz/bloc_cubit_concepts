@@ -9,5 +9,5 @@ class WishlistInitialEvent extends WishlistEvent{}
 class RemoveFromWishlistEvent extends WishlistEvent{
   final ProductModel productToRemove;
 
-  RemoveFromWishlistEvent(this.productToRemove);
+  RemoveFromWishlistEvent({required this.productToRemove});
 }

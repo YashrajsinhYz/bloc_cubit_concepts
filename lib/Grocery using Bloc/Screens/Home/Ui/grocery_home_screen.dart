@@ -1,5 +1,6 @@
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Cart/Ui/cart_screen.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Home/Bloc/home_bloc.dart';
+import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Screens/Wishlist/Ui/wishlist_screen.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Utilities/Widgets/product_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,9 @@ class _GroceryHomeScreenState extends State<GroceryHomeScreen> {
         title: const Text("Grocery Store"),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                homeBloc.add(WishlistButtonNavigateEvent());
+              },
               icon: const Icon(Icons.favorite),
               tooltip: "Wishlist"),
           IconButton(
@@ -49,6 +52,9 @@ class _GroceryHomeScreenState extends State<GroceryHomeScreen> {
             if (state is NavigateToCartActionState) {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const CartScreen()));
+            } else if (state is NavigateToWishlistActionState) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const WishlistScreen()));
             } else if (state is ProductAddedToCartActionState) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Added to Cart."),
@@ -56,6 +62,14 @@ class _GroceryHomeScreenState extends State<GroceryHomeScreen> {
             } else if (state is ProductRemovedFromCartActionState) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Removed from Cart."),
+                  duration: Duration(seconds: 1)));
+            } else if (state is ProductAddedToWishlistActionState) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Added to Wishlist."),
+                  duration: Duration(seconds: 1)));
+            } else if (state is ProductRemovedFromWishlistActionState) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Removed from Wishlist."),
                   duration: Duration(seconds: 1)));
             }
           },

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Utilities/Data/grocery_list.dart';
 import 'package:bloc_cubit_concepts/Grocery%20using%20Bloc/Utilities/imports.dart';
 import 'package:flutter/foundation.dart';
@@ -25,15 +26,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     // Convert json to List<ProductModel>
     if (groceryList.isEmpty) {
       groceryList = GroceryData.groceryProducts
-        .map((e) => ProductModel(
-            id: e["id"],
-            name: e["name"],
-            description: e["description"],
-            price: e["price"],
-            imageUrl: e["imageUrl"],
-            inCart: e["inCart"],
-            inWishlist: e["inWishlist"]))
-        .toList();
+          .map((e) => ProductModel(
+              id: e["id"],
+              name: e["name"],
+              description: e["description"],
+              price: e["price"],
+              imageUrl: e["imageUrl"],
+              inCart: e["inCart"],
+              inWishlist: e["inWishlist"]))
+          .toList();
     }
 
     emit(HomeSuccessState(products: groceryList));
@@ -41,12 +42,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> productCartButtonEvent(
       ProductCartButtonEvent event, Emitter<HomeState> emit) {
-    if (cartItems.contains(event.clickedProduct))
-      {
-        cartItems.remove(event.clickedProduct);
-        event.clickedProduct.inCart = false;
-        emit(ProductRemovedFromCartActionState());
-      } else {
+    if (cartItems.contains(event.clickedProduct)) {
+      cartItems.remove(event.clickedProduct);
+      event.clickedProduct.inCart = false;
+      emit(ProductRemovedFromCartActionState());
+    } else {
       cartItems.add(event.clickedProduct);
       event.clickedProduct.inCart = true;
       emit(ProductAddedToCartActionState());
@@ -64,8 +64,25 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> productWishlistButtonEvent(
       ProductWishlistButtonEvent event, Emitter<HomeState> emit) {
-    wishListItems.add(event.clickedProduct);
-    emit(ProductAddedToWishlistActionState());
+
+    if (wishListItems.contains(event.clickedProduct)) {
+      wishListItems.remove(event.clickedProduct);
+      event.clickedProduct.inWishlist = false;
+      emit(ProductRemovedFromWishlistActionState());
+    } else {
+      wishListItems.add(event.clickedProduct);
+      event.clickedProduct.inWishlist = true;
+      emit(ProductAddedToWishlistActionState());
+    }
+
+    // update groceryList's cart flag
+    groceryList.map((e) {
+      if (e.name == event.clickedProduct.name) {
+        e.inWishlist = event.clickedProduct.inWishlist;
+      }
+    }).toList();
+
+    emit(HomeSuccessState(products: groceryList));
   }
 
   FutureOr<void> cartButtonNavigateEvent(
@@ -74,5 +91,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> wishlistButtonNavigateEvent(
-      WishlistButtonNavigateEvent event, Emitter<HomeState> emit) {}
+      WishlistButtonNavigateEvent event, Emitter<HomeState> emit) {
+    emit(NavigateToWishlistActionState());
+  }
 }

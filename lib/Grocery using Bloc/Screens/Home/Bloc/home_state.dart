@@ -26,3 +26,5 @@ class ProductAddedToCartActionState extends HomeActionState {}
 class ProductRemovedFromCartActionState extends HomeActionState {}
 
 class ProductAddedToWishlistActionState extends HomeActionState {}
+
+class ProductRemovedFromWishlistActionState extends HomeActionState {}

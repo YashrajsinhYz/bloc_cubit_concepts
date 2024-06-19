@@ -8,5 +8,5 @@ class CartInitialEvent extends CartEvent {}
 class RemoveFromCartEvent extends CartEvent {
   final ProductModel productToRemove;
 
-  RemoveFromCartEvent(this.productToRemove);
+  RemoveFromCartEvent({required this.productToRemove});
 }
